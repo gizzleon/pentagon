@@ -522,7 +522,7 @@ class PentagonFrame(wx.Frame):
 		info.Name = 'Pentagon'
 		info.Version = '0.9'
 		info.Description = wordwrap('Please refer to the link below for more information and instructions about this program.', 300, wx.ClientDC(self))
-		info.WebSite = ('http://www.baidu.com', 'Github')
+		info.WebSite = ('https://github.com/gizzleon/pentagon', 'Github')
 		wx.AboutBox(info)
 	
 if __name__ == "__main__":
