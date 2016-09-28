@@ -37,7 +37,7 @@ class PentagonThread(threading.Thread):
 		result = Login(self.ID, self.password, self.captcha)
 		self.handleResult(result, "登陆成功")
 		if result.state == False:		
-			wx.CallAfter(self.window.ShowMessage, "选课结束\n\n\n")
+			wx.CallAfter(self.window.ShowMessage, "选课结束\n\n")
 			self.window.thread = PentagonThread(self.window)
 			self.window.buttonLogin.Enable()
 			return
@@ -45,7 +45,7 @@ class PentagonThread(threading.Thread):
 		result = SwitchSemester(self.semester, result.url)
 		self.handleResult(result, "已成功切换到学期" + str(self.semester))
 		if result.state == False:
-			wx.CallAfter(self.window.ShowMessage, "选课结束\n\n\n")
+			wx.CallAfter(self.window.ShowMessage, "选课结束\n\n")
 			self.window.thread = PentagonThread(self.window)
 			self.window.buttonLogin.Enable()
 			return
@@ -102,7 +102,7 @@ class PentagonThread(threading.Thread):
 							self.keywordsInType[key].append('#')
 							break
 		
-		wx.CallAfter(self.window.ShowMessage, "选课结束\n\n\n")
+		wx.CallAfter(self.window.ShowMessage, "选课结束\n\n")
 		self.window.thread = PentagonThread(self.window)
 		self.window.buttonLogin.Enable()
 				
@@ -255,12 +255,6 @@ class PentagonFrame(wx.Frame):
 		self.choiceType.SetMinClientSize((80, -1))
 		sizerType.Add(self.choiceType, 1, wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_LEFT | wx.ALL, 2)
 		
-		# Course Code
-#		sizerCode = wx.BoxSizer(wx.VERTICAL)
-#		sizerCode.Add(wx.StaticText(self.panelRight, label = "Code"))
-#		self.textCode = wx.TextCtrl(self.panelRight,)
-#		sizerCode.Add(self.textCode, 1, wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_LEFT | wx.ALL, 2)		
-		
 		# Course Name
 		sizerName = wx.BoxSizer(wx.VERTICAL)
 #		sizerName.SetMinSize((200, -1))
@@ -307,10 +301,15 @@ class PentagonFrame(wx.Frame):
 		self.SetSize((900, 500))
 		self.SetMinSize((800, 350))
 		self.Show()
+
+		
+		self.ShowMessage("Pentagon / 教五大楼\n在右侧面板配置好选课列表后方可登陆选课\n列表配置方法与更多信息请见:https://github.com/gizzleon/pentagon")
+
 		# ---- Start Thread ----
 		# initiating the thread here may froze the program for seconds
 		# any better solution???
 		self.thread = PentagonThread(self)
+	
 		
 	def UpdateCaptcha(self, captchaPath = 'code.jpg'):
 		captchaBmp = wx.Image(captchaPath, wx.BITMAP_TYPE_JPEG).Scale(63, 30).ConvertToBitmap()
