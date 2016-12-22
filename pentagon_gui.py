@@ -68,7 +68,7 @@ class PentagonThread(threading.Thread):
 			if course[3] == False:
 				recommendations.remove(course)
 		
-		for i in range(10000):
+		for i in range(5000):
 			wx.CallAfter(self.window.ShowMessage, "第"+str(i+1)+"回合选课:")
 			time.sleep(self.interval)
 			for key in self.keywordsInType:
@@ -164,7 +164,7 @@ class PentagonFrame(wx.Frame):
 		sizerSetting.Add(self.choiceSemester, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_LEFT | wx.ALL, 2)		
 		sizerSetting.AddSpacer((15, 0))
 		# Interval
-		sizerSetting.Add(wx.StaticText(self.panelLeft, label = "Interval(0.1~10):"), 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 2)
+		sizerSetting.Add(wx.StaticText(self.panelLeft, label = "Interval(0.5~10):"), 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 2)
 		sizerSetting.AddSpacer((5, 0))		
 		self.textInterval = wx.TextCtrl(self.panelLeft)
 		self.textInterval.SetMinClientSize((50, -1))
@@ -384,8 +384,8 @@ class PentagonFrame(wx.Frame):
 			return -1
 		if interval > 10:
 			return 10
-		if interval < 0.1:
-			return 0.1
+		if interval < 0.5:
+			return 0.5
 		return interval
 		
 	# ---- event handlers	 ----
